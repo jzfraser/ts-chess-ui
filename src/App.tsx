@@ -7,18 +7,20 @@ function App() {
 
   return (
     <div className="h-screen w-screen flex items-center justify-center bg-gray-800">
-      <button
-        className="bg-white rounded-lg mr-4 p-2"
-        onClick={() => setBoardFen(emptyBoardFen)}
-      >
-        Empty
-      </button>
-      <button
-        className="bg-white rounded-lg mr-4 p-2"
-        onClick={() => setBoardFen(initialBoardFen)}
-      >
-        Initialize
-      </button>
+      <div className="grid grid-rows-2">
+        <button
+          className="bg-white rounded-lg m-2 p-2"
+          onClick={() => setBoardFen(emptyBoardFen)}
+        >
+          Empty
+        </button>
+        <button
+          className="bg-white rounded-lg m-2 p-2"
+          onClick={() => setBoardFen(initialBoardFen)}
+        >
+          Initialize
+        </button>
+      </div>
       <Chessboard boardFen={boardFen} setBoardFen={setBoardFen} />
     </div>
   );
