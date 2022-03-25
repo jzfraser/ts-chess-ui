@@ -2,10 +2,17 @@ import { PieceType } from "../types/Chessboard";
 
 export interface PieceProps {
   symbol: PieceType;
+  mouseEventHandlers: {
+    handleMouseDown: Function;
+    handleMouseMove: Function;
+    handleMouseUp: Function;
+  };
 }
 
 export default function Piece(props: PieceProps) {
-  let classNames = "w-full h-full bg-contain bg-no-repeat ";
+  const { handleMouseDown, handleMouseMove, handleMouseUp } =
+    props.mouseEventHandlers;
+  let classNames = "w-full h-full bg-contain bg-no-repeat cursor-grab ";
   const pieceColor = props.symbol[0];
   const pieceType = props.symbol[1];
 
@@ -25,5 +32,12 @@ export default function Piece(props: PieceProps) {
     else if (pieceType === "k") classNames += "bg-bk";
   }
 
-  return <div className={classNames}></div>;
+  return (
+    <div
+      className={classNames}
+      onMouseDown={(e) => handleMouseDown(e)}
+      onMouseUp={(e) => handleMouseUp(e)}
+      onMouseMove={(e) => handleMouseMove(e)}
+    ></div>
+  );
 }
