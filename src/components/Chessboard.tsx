@@ -1,13 +1,13 @@
 import Tile from "./Tile";
 
 export interface ChessboardProps {
-  width: string;
-  height: string;
+  size: "lg" | "md" | "sm";
 }
 
 export default function Chessboard(props: ChessboardProps) {
   const classNames = "grid grid-rows-8 border-2 border-stone-400";
-
+  const size =
+    props.size === "lg" ? "w-[800px] h-[800px]" : "w-[600px] h-[600px]";
   function LightRow() {
     return (
       <div className="w-full grid grid-cols-8">
@@ -39,10 +39,7 @@ export default function Chessboard(props: ChessboardProps) {
   }
 
   return (
-    <div
-      id="chessboard"
-      className={`w-${props.width} h-${props.height} ${classNames}`}
-    >
+    <div id="chessboard" className={`${size} ${classNames}`}>
       {LightRow()}
       {DarkRow()}
       {LightRow()}
