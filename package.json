@@ -17,8 +17,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "build:style": "tailwindcss build ./src/styles/index.css -o ./public/tailwind.css",
-    "start": "craco start",
+    "build:style": "tailwindcss build -i ./src/styles/index.css -o ./public/tailwind.css --watch",
+    "start": "craco start & npm run build:style",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"

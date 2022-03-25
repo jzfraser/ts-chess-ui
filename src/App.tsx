@@ -1,6 +1,10 @@
+import Chessboard from "./components/Chessboard";
+
 function App() {
   return (
-    <h1 className="text-3xl font-bold line-through">Hello there kiddos</h1>
+    <div className="h-screen w-screen flex items-center justify-center bg-gray-800">
+      <Chessboard width="[800px]" height="[800px]" />
+    </div>
   );
 }
 
