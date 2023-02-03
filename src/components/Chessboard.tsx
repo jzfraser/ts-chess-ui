@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import Tile from "./Tile";
+
 import { fenSymbolToPiece } from "../constants";
+import Tile from "./Tile";
+import { PieceType } from "../types/Chessboard"
 
 export interface ChessboardProps {
   boardFen: string;
@@ -13,7 +15,7 @@ function swapColor(color: "light" | "dark") {
 }
 
 export default function Chessboard(props: ChessboardProps) {
-  const [pieces, setPieces] = useState<any[]>([]);
+  const [pieces, setPieces] = useState<Array<PieceType | null>>([]);
   const [activePiece, setActivePiece] = useState<HTMLElement | null>(null);
   const [tiles, setTiles] = useState<any[]>([]);
 
@@ -27,23 +29,36 @@ export default function Chessboard(props: ChessboardProps) {
     console.log(element);
   };
 
-  const handleMouseMove = (e: React.MouseEvent) => {};
+  const handleMouseMove = (_e: React.MouseEvent) => {};
 
-  const handleMouseUp = (e: React.MouseEvent) => {
+  const handleMouseUp = (_e: React.MouseEvent) => {
     setActivePiece(null);
   };
 
-  const mouseEventHandlers = {
-    handleMouseDown,
-    handleMouseUp,
-    handleMouseMove,
-  };
+  // function piecesFromFen() {
+  //   let pieces: any[] = [];
+  //   let fenRanks = props.boardFen.split("/");
+  //   for (let rank of fenRanks) {
+  //     let piece: string | null = null;
+  //     for (let fenSymbol of rank) {
+  //       piece = fenSymbolToPiece[fenSymbol] ?? null;
+  //       if (piece === null) {
+  //         for (let i = 0; i < parseInt(fenSymbol); i++) {
+  //           pieces.push(null);
+  //         }
+  //       } else {
+  //         pieces.push(piece);
+  //       }
+  //     }
+  //   }
+  //   setPieces(pieces);
+  // }
 
-  function piecesFromFen() {
-    let pieces: any[] = [];
+  useEffect(() => {
+    let pieces: Array<PieceType | null> = [];
     let fenRanks = props.boardFen.split("/");
     for (let rank of fenRanks) {
-      let piece: string | null = null;
+      let piece: PieceType | null = null;
       for (let fenSymbol of rank) {
         piece = fenSymbolToPiece[fenSymbol] ?? null;
         if (piece === null) {
@@ -55,15 +70,17 @@ export default function Chessboard(props: ChessboardProps) {
         }
       }
     }
+    console.log(pieces);
     setPieces(pieces);
-  }
-
-  useEffect(() => {
-    piecesFromFen();
-    // eslint-disable-next-line
   }, [props.boardFen]);
 
+  // TODO: take out of useEffect, have function generate tiles based on pieces inside return JSX
   useEffect(() => {
+    const mouseEventHandlers = {
+      handleMouseDown,
+      handleMouseUp,
+      handleMouseMove,
+    };
     let color: "light" | "dark" = "dark";
     const newTiles = pieces.map((p, i) => {
       if (i % 8 === 0) color = swapColor(color);
@@ -81,7 +98,6 @@ export default function Chessboard(props: ChessboardProps) {
       return newTile;
     });
     setTiles(newTiles);
-    // eslint-disable-next-line
   }, [pieces]);
 
   return (

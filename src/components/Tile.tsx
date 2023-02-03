@@ -5,7 +5,7 @@ export interface TileProps {
   color: "light" | "dark";
   width: string;
   height: string;
-  piece?: PieceType;
+  piece: PieceType | null;
   mouseEventHandlers: {
     handleMouseDown: Function;
     handleMouseMove: Function;
