@@ -34,7 +34,7 @@ export default function Piece(props: PieceProps) {
 
   return (
     <div
-      className={classNames}
+      className={classNames + " max-w-[100px]"}
       onMouseDown={(e) => handleMouseDown(e)}
       onMouseUp={(e) => handleMouseUp(e)}
       onMouseMove={(e) => handleMouseMove(e)}
