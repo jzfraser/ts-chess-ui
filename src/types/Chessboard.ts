@@ -19,3 +19,10 @@ export type TileDefinition = {
   width: string;
   height: string;
 };
+
+export type DragInfoType = {
+  startLeft: number;
+  startTop: number;
+  startX: number;
+  startY: number;
+}

@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { fenSymbolToPiece } from "../constants";
 import Tile from "./Tile";
-import { PieceType, TileDefinition } from "../types/Chessboard"
+import { PieceType, TileDefinition, DragInfoType } from "../types/Chessboard"
 
 export interface ChessboardProps {
   boardFen: string;
@@ -39,6 +39,8 @@ export default function Chessboard(props: ChessboardProps) {
   const [pieces, setPieces] = useState<Array<PieceType | null>>([]);
   const [activePiece, setActivePiece] = useState<HTMLElement>();
   const [dragStart, setDragStart] = useState<dragCoords>();
+  const rowRef = useRef<HTMLDivElement>(null);
+  // const dragInfo = useRef<DragInfoType>();
 
   useEffect(() => {
     let pieces: Array<PieceType | null> = [];
@@ -58,6 +60,65 @@ export default function Chessboard(props: ChessboardProps) {
     }
     setPieces(pieces);
   }, [props.boardFen]);
+
+
+  // const handleMouseDown = (e: React.MouseEvent) => {
+  //   const element = e.target as HTMLElement;
+  //   if (element.classList.contains("bg-contain")) {
+  //     console.log(element);
+  //     const x = e.clientX;
+  //     const y = e.clientY;
+  //     const offsetLeft = element.offsetLeft;
+  //     const offsetTop = element.offsetTop;
+  //     const { left, top } = element.getBoundingClientRect();
+  //     element.style.position = "absolute";
+  //     if (rowRef.current) {
+  //       let { height } = rowRef.current.getBoundingClientRect();
+  //       element.style.width = `${height}px`;
+  //       element.style.height = `${height}px`;
+  //     }
+
+  //     dragInfo.current = {
+  //       startLeft: left - offsetLeft,
+  //       startTop: top - offsetTop,
+  //       startX: x,
+  //       startY: y,
+  //     };
+  //     console.log(dragInfo.current);
+  //     setActivePiece(element);
+  //   }
+  // };
+
+  // const handleMouseMove = (e: React.MouseEvent) => {
+  //   const element = e.target as HTMLElement;
+  //   if (
+  //     element.classList.contains("bg-contain") &&
+  //     dragInfo.current !== undefined
+  //   ) {
+  //     console.log(dragInfo.current);
+  //     const startLeft = dragInfo.current.startLeft;
+  //     const startTop = dragInfo.current.startTop;
+  //     const startX = dragInfo.current.startX;
+  //     const startY = dragInfo.current.startY;
+  //     element.style.backgroundPositionX = `${startLeft + e.clientX - startX}`;
+  //     element.style.backgroundPositionY = `${startTop + e.clientY - startY}`;
+  //     // element.style.transform = `translate(${
+  //     //   startLeft + e.clientX - startX
+  //     // }px, ${startTop + e.clientY - startY}px)`;
+  //   }
+  // };
+
+  // const handleMouseUp = (_e: React.MouseEvent) => {
+  //   if (activePiece) activePiece.style.position = "relative";
+  //   setActivePiece(null);
+  //   dragInfo.current = undefined;
+  // };
+
+  // const mouseEventHandlers = {
+  //   handleMouseDown,
+  //   handleMouseUp,
+  //   handleMouseMove,
+  // };
 
   const classNames = "grid grid-rows-8 border-4 border-black ";
   const size =
@@ -129,7 +190,7 @@ export default function Chessboard(props: ChessboardProps) {
 
   return (
     <div id="chessboard" className={`${size} ${classNames}`}>
-      <div className="w-full grid grid-cols-8">
+      <div className="w-full grid grid-cols-8" ref={rowRef}>
         {renderTiles(tiles.slice(0, 8))}
       </div>
       <div className="w-full grid grid-cols-8">
