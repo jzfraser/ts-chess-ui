@@ -6,7 +6,7 @@ function App() {
   const [boardFen, setBoardFen] = useState<string>(initialBoardFen);
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center bg-gray-800">
+    <div className="h-screen w-screen flex items-center justify-center bg-gray-800 overflow-hidden">
       <div className="grid grid-rows-2">
         <button
           className="bg-white rounded-lg m-2 p-2"

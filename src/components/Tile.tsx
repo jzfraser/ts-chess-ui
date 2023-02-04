@@ -20,7 +20,6 @@ export default function Tile(props: TileProps) {
     <div
       className={`${color}`}
       onMouseMove={(e) => props.mouseEventHandlers.handleMouseMove(e)}
-      onMouseDown={(e) => props.mouseEventHandlers.handleMouseDown(e)}
       onMouseUp={(e) => props.mouseEventHandlers.handleMouseUp(e)}
     >
       {props.piece && (

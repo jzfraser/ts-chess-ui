@@ -12,17 +12,9 @@ export type PieceType =
   | "wk"
   | "bk";
 
-export type TileDefinition = {
-  key: number;
-  color: 'light' | 'dark';
-  piece: PieceType | null;
-  width: string;
-  height: string;
-};
-
 export type DragInfoType = {
-  startLeft: number;
-  startTop: number;
+  left: number;
+  top: number;
   startX: number;
   startY: number;
 }
